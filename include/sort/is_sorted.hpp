@@ -1,8 +1,6 @@
 #ifndef DE6DD28B_6C5D_4E1A_AF27_E7F1BB4E7FFD
 #define DE6DD28B_6C5D_4E1A_AF27_E7F1BB4E7FFD
 
-#include <cassert>
-#include <iostream>
 #include <stdexcept>
 
 namespace sort {

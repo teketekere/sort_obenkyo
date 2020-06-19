@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "sort/insertion_sort.hpp"
+#include "sort/algorithms/insertion_sort.hpp"
 
 namespace sort {
 using SortFunc = std::function<void(void)>;
