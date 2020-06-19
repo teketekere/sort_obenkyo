@@ -9,10 +9,10 @@
 #include <unordered_map>
 #include <vector>
 
-#include "insertion_sort.hpp"
+#include "sort/insertion_sort.hpp"
 
 namespace sort {
-using VoidFunc = std::function<void(void)>;
+using SortFunc = std::function<void(void)>;
 
 template <typename T>
 bool compare(T i1, T i2) {
@@ -20,21 +20,21 @@ bool compare(T i1, T i2) {
 }
 
 template <typename T>
-VoidFunc create_insertion_sort(std::vector<T> &input) {
+SortFunc create_insertion_sort(std::vector<T> &input) {
     return [&input]() mutable {
         insertion_sort(input.begin(), input.end(), &compare<T>);
     };
 }
 
 template <typename T>
-VoidFunc create_std_sort(std::vector<T> &input) {
+SortFunc create_std_sort(std::vector<T> &input) {
     return [&input]() mutable { std::sort(input.begin(), input.end()); };
 }
 
 template <typename T>
 std::function<void(void)> create_sort(const std::string &type,
                                       std::vector<T> &input) {
-    using Map = std::unordered_map<std::string, std::function<VoidFunc()>>;
+    using Map = std::unordered_map<std::string, std::function<SortFunc()>>;
     static auto &map = *(new Map{
         {"insertion", [&input]() { return create_insertion_sort<T>(input); }},
         {"stdsort", [&input]() { return create_std_sort<T>(input); }}});

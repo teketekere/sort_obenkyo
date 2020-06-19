@@ -5,11 +5,11 @@
 #include <string>
 #include <vector>
 
-#include "distribution_factory.hpp"
-#include "generate_instance.hpp"
-#include "is_sorted.hpp"
-#include "sort_factory.hpp"
-#include "time.hpp"
+#include "sort/distribution_factory.hpp"
+#include "sort/generate_instance.hpp"
+#include "sort/is_sorted.hpp"
+#include "sort/sort_factory.hpp"
+#include "sort/time.hpp"
 
 int main(int argc, char** argv) {
     int opt;
