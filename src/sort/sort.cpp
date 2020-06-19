@@ -43,15 +43,14 @@ int main(int argc, char** argv) {
     auto input_original =
         sort::generate_input_sequence<std::mt19937, int>(input_size, dist);
 
-    // Execute each algorithms.
     for (const auto& name : sort_names) {
         // Copy input per loop (Cuz of in-place sorting)
         auto input = input_original;
 
         auto sorter = sort::create_sort(name, input);
-
-        std::cout << "Sort by " << name << ": ";
-        sort::time<std::chrono::milliseconds>(sorter, " [msec]");
+        auto elapsed_time = sort::time<std::chrono::milliseconds>(sorter);
+        std::cout << "Sort by " << name << ": " << elapsed_time << " [msec]"
+                  << std::endl;
 
         // Check this algorithm works?
         sort::is_sorted(input.begin(), input.end(),
