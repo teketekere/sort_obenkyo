@@ -1,6 +1,6 @@
 # ソートのお勉強
 
-Introduction to algorithms()のお勉強。
+Introduction to algorithms [(Amazon link)](https://www.amazon.co.jp/Introduction-Algorithms-Press-Thomas-Cormen/dp/0262533057)のお勉強。
 
 ## Requirements
 
