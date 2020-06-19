@@ -39,19 +39,16 @@ int main(int argc, char** argv) {
         }
     }
 
-    // Create distribution.
     auto dist = sort::crate_distribution<std::mt19937>(distribution_name);
-
-    // Create sort target.
     auto input_original = sort::generate<std::mt19937, int>(input_size, dist);
 
     // Execute each algorithms.
     for (const auto& name : sort_names) {
-        // Create sort algorithm.
+        // Copy input per loop (Cuz of in-place sorting)
         auto input = input_original;
+
         auto sorter = sort::create_sort(name, input);
 
-        // Measure this algorithm.
         std::cout << "Sort by " << name << ": ";
         sort::time<std::chrono::milliseconds>(sorter, " [msec]");
 
