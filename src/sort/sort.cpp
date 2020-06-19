@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "sort/distribution_factory.hpp"
-#include "sort/generate_instance.hpp"
+#include "sort/generate_input_sequence.hpp"
 #include "sort/is_sorted.hpp"
 #include "sort/sort_factory.hpp"
 #include "sort/time.hpp"
@@ -40,7 +40,8 @@ int main(int argc, char** argv) {
     }
 
     auto dist = sort::crate_distribution<std::mt19937>(distribution_name);
-    auto input_original = sort::generate<std::mt19937, int>(input_size, dist);
+    auto input_original =
+        sort::generate_input_sequence<std::mt19937, int>(input_size, dist);
 
     // Execute each algorithms.
     for (const auto& name : sort_names) {
