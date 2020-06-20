@@ -1,5 +1,7 @@
 # ソートのお勉強
 
+![C++ unittest](https://github.com/teketekere/sort_obenkyo/workflows/C++%20unittest/badge.svg)
+
 Introduction to algorithms [(Amazon link)](https://www.amazon.co.jp/Introduction-Algorithms-Press-Thomas-Cormen/dp/0262533057)のお勉強。
 
 ## Requirements
