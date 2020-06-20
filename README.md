@@ -15,3 +15,14 @@ cmake -G Ninja ..
 ninja -j4
 ./sort -i 10000 -d uniform_small -s stdsort
 ```
+
+### Unittest
+
+```shell
+git submodule update --init --recursive
+mkdir build
+cd build
+cmake -G Ninja -D BUILD_SORT_UNITTEST=ON ..
+ninja -j4
+ctest -V
+```
