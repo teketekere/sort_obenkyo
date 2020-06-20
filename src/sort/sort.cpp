@@ -40,8 +40,11 @@ int main(int argc, char** argv) {
         }
     }
 
-    auto dist = sort::crate_distribution<std::mt19937>(distribution_name);
-    auto input_original = sort::generate_input_sequence<std::mt19937, int>(input_size, dist);
+    using engine = std::mt19937;
+    using container = std::vector<int>;
+
+    auto dist = sort::crate_distribution<engine>(distribution_name);
+    auto input_original = sort::generate_input_sequence<engine, container>(input_size, dist);
 
     for (const auto& name : sort_names) {
         // Copy input per loop (Cuz of in-place sorting)

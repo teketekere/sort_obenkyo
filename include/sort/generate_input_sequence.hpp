@@ -18,16 +18,16 @@ Engine create_engine() {
     return Engine{seq};
 }
 
-template <class Engine, typename T, class Distribution>
-std::vector<T> generate_input_sequence(std::size_t size, Distribution dist) {
+template <class Engine, class Container, class Distribution>
+Container generate_input_sequence(std::size_t size, Distribution dist) {
     auto engine = create_engine<Engine>();
-    std::vector<T> result{};
-    result.reserve(size);
+    Container input_sequence{};
+    input_sequence.reserve(size);
     for (std::size_t i = 0; i < size; ++i) {
-        result.push_back(dist(engine));
+        input_sequence.push_back(dist(engine));
     }
 
-    return result;
+    return input_sequence;
 }
 
 }  // namespace sort
