@@ -13,9 +13,6 @@
 
 namespace sort {
 
-// template <typename T>
-// using Comparable = std::function<bool(T, T)>;
-
 template <class RandomAccessIterator, class Comparable>
 using SortFunc = std::function<void(RandomAccessIterator, RandomAccessIterator, Comparable)>;
 
