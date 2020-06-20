@@ -40,16 +40,22 @@ int main(int argc, char** argv) {
         }
     }
 
-    auto dist = sort::crate_distribution<std::mt19937>(distribution_name);
-    auto input_original = sort::generate_input_sequence<std::mt19937, int>(input_size, dist);
+    using engine = std::mt19937;
+    using element_type = int;
+    using container = std::vector<element_type>;
+
+    auto dist = sort::crate_distribution<engine>(distribution_name);
+    auto input_original = sort::generate_input_sequence<engine, container>(input_size, dist);
 
     for (const auto& name : sort_names) {
         // Copy input per loop (Cuz of in-place sorting)
         auto input = input_original;
 
-        auto sorter =
-            sort::create_sort<int>(name, input, [](int i1, int i2) { return sort::ascending_compare<int>(i1, i2); });
-        auto elapsed_time = sort::time<std::chrono::milliseconds>(sorter);
+        auto compare = [](element_type i1, element_type i2) { return sort::ascending_compare<element_type>(i1, i2); };
+        auto sorter = sort::create_sort<decltype(input)::iterator, decltype(compare)>(name);
+
+        auto elapsed_time = sort::time<std::chrono::milliseconds>(
+            [&input, &compare, &sorter]() { sorter(input.begin(), input.end(), compare); });
         std::cout << "Sort by " << name << ": " << elapsed_time << " [msec]" << std::endl;
 
         // Check this algorithm works?
