@@ -41,7 +41,8 @@ int main(int argc, char** argv) {
     }
 
     using engine = std::mt19937;
-    using container = std::vector<int>;
+    using element_type = int;
+    using container = std::vector<element_type>;
 
     auto dist = sort::crate_distribution<engine>(distribution_name);
     auto input_original = sort::generate_input_sequence<engine, container>(input_size, dist);
@@ -50,7 +51,7 @@ int main(int argc, char** argv) {
         // Copy input per loop (Cuz of in-place sorting)
         auto input = input_original;
 
-        auto compare = [](int i1, int i2) { return sort::ascending_compare<int>(i1, i2); };
+        auto compare = [](element_type i1, element_type i2) { return sort::ascending_compare<element_type>(i1, i2); };
         auto sorter = sort::create_sort<decltype(input)::iterator, decltype(compare)>(name);
 
         auto elapsed_time = sort::time<std::chrono::milliseconds>(
