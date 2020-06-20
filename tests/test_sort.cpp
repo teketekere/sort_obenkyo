@@ -16,7 +16,7 @@ std::vector<int> create_test_input() {
 
 void test_sort(const std::string& sort_name) {
     auto test_input = create_test_input();
-    auto sorter = sort::create_sort(sort_name, test_input, &sort::compare<int>);
+    auto sorter = sort::create_sort(sort_name, test_input, &sort::ascending_compare<int>);
     sorter();
     for (const auto& v : test_input) std::cout << v << " ";
     EXPECT_NO_THROW(sort::is_sorted(test_input.begin(), test_input.end(), [](int i1, int i2) { return i1 <= i2; }));

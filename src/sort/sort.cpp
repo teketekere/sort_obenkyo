@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         // Copy input per loop (Cuz of in-place sorting)
         auto input = input_original;
 
-        auto sorter = sort::create_sort(name, input, &sort::compare<int>);
+        auto sorter = sort::create_sort(name, input, &sort::ascending_compare<int>);
         auto elapsed_time = sort::time<std::chrono::milliseconds>(sorter);
         std::cout << "Sort by " << name << ": " << elapsed_time << " [msec]" << std::endl;
 
