@@ -41,20 +41,17 @@ int main(int argc, char** argv) {
     }
 
     auto dist = sort::crate_distribution<std::mt19937>(distribution_name);
-    auto input_original =
-        sort::generate_input_sequence<std::mt19937, int>(input_size, dist);
+    auto input_original = sort::generate_input_sequence<std::mt19937, int>(input_size, dist);
 
     for (const auto& name : sort_names) {
         // Copy input per loop (Cuz of in-place sorting)
         auto input = input_original;
 
-        auto sorter = sort::create_sort(name, input);
+        auto sorter = sort::create_sort(name, input, &sort::compare<int>);
         auto elapsed_time = sort::time<std::chrono::milliseconds>(sorter);
-        std::cout << "Sort by " << name << ": " << elapsed_time << " [msec]"
-                  << std::endl;
+        std::cout << "Sort by " << name << ": " << elapsed_time << " [msec]" << std::endl;
 
         // Check this algorithm works?
-        sort::is_sorted(input.begin(), input.end(),
-                        [](auto i1, auto i2) { return i1 <= i2; });
+        sort::is_sorted(input.begin(), input.end(), [](auto i1, auto i2) { return i1 <= i2; });
     }
 }
