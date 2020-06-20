@@ -18,6 +18,6 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake -DBUILD_MPF_UNITTEST=ON ..
+          cmake -DBUILD_SORT_UNITTEST=ON ..
           make -j2
           ctest -V
