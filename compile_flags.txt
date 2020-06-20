@@ -1,6 +1,9 @@
 -std=c++1z
 -I./include
+-isystem./externals/googletest/googletest/include
+-isystem./externals/googletest/googlemock/include
 -Werror
 -Weverything
 -Wno-c++98-compat
 -Wno-c++98-compat-pedantic
+-Wno-global-constructors

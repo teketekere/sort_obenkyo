@@ -4,13 +4,12 @@
 namespace sort {
 
 template <class RandomAccessIterator, class Comparable>
-void insertion_sort(RandomAccessIterator begin, RandomAccessIterator end,
-                    Comparable compare) {
+void insertion_sort(RandomAccessIterator begin, RandomAccessIterator end, Comparable compare) {
     auto rend = begin - 1;
     for (auto it = begin + 1; it != end; ++it) {
         auto key = *it;
         auto jt = it - 1;
-        while (jt != rend && compare(*jt, key)) {
+        while (jt != rend && !compare(*jt, key)) {
             *(jt + 1) = *jt;
             --jt;
         }

@@ -1,0 +1,23 @@
+name: C++ unittest
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: build_and_exec
+        run: |
+          mkdir -p build
+          cd build
+          cmake -DBUILD_MPF_UNITTEST=ON ..
+          make -j2
+          ctest -V

@@ -1,0 +1,26 @@
+buildType:
+  default: release
+  description: Debug or Release
+  choices:
+    debug:
+      short: Debug
+      long: Build with debugging information
+      buildType: Debug
+    release:
+      short: Release
+      long: Optimize the resulting binaries
+      buildType: Release
+
+unittest:
+  default: on
+  choices:
+    off:
+      short: TestOFF
+      long: Disable to build unittest
+      settings:
+        BUILD_SORT_UNITTEST: OFF
+    on:
+      short: TestON
+      long: Enable to build unittest
+      settings:
+        BUILD_SORT_UNITTEST: ON
