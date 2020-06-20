@@ -6,8 +6,7 @@
 namespace sort {
 
 template <class RandomAccessIterator, class Checker>
-void is_sorted(RandomAccessIterator begin, RandomAccessIterator end,
-               Checker checker) {
+void is_sorted(RandomAccessIterator begin, RandomAccessIterator end, Checker checker) {
     auto prev_end = end - 1;
     for (auto it = begin; it != prev_end; ++it) {
         if (!checker(*it, *(it + 1))) {

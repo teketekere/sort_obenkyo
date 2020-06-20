@@ -22,12 +22,10 @@ DistributionFunc<Engine> create_uniform() {
 
 template <class Engine>
 DistributionFunc<Engine> crate_distribution(const std::string& type) {
-    using Map = std::unordered_map<std::string,
-                                   std::function<DistributionFunc<Engine>()>>;
-    static auto& map =
-        *(new Map{{"uniform_small", &create_uniform<Engine, 0, 10>},
-                  {"uniform_middle", &create_uniform<Engine, 0, 100>},
-                  {"uniform_large", &create_uniform<Engine, 0, 1000>}});
+    using Map = std::unordered_map<std::string, std::function<DistributionFunc<Engine>()>>;
+    static auto& map = *(new Map{{"uniform_small", &create_uniform<Engine, 0, 10>},
+                                 {"uniform_middle", &create_uniform<Engine, 0, 100>},
+                                 {"uniform_large", &create_uniform<Engine, 0, 1000>}});
 
     auto it = map.find(type);
     if (it == map.end()) {
@@ -36,8 +34,7 @@ DistributionFunc<Engine> crate_distribution(const std::string& type) {
             ss << item.first << ", ";
         }
 
-        throw std::runtime_error("Unavailable distribution: " + type +
-                                 ". Avairable: " + ss.str());
+        throw std::runtime_error("Unavailable distribution: " + type + ". Avairable: " + ss.str());
     }
 
     return it->second();
