@@ -2,6 +2,7 @@
 #define FE7E17AE_28A4_48F5_89F8_635F664C4372
 
 #include <functional>
+#include <limits>
 #include <random>
 #include <sstream>
 #include <string>
@@ -18,8 +19,17 @@ DistributionFunc<Engine, T> create_uniform();
 template <class Engine, typename T = int, int Lower, int Upper>
 DistributionFunc<Engine, int> create_uniform() {
     return [](Engine& engine) {
-        auto dist = std::uniform_int_distribution<>(Lower, Upper);
+        static auto dist = std::uniform_int_distribution<>(Lower, Upper);
         return dist(engine);
+    };
+}
+
+template <class Engine, typename T>
+DistributionFunc<Engine, T> create_ascending() {
+    return [](Engine& engine) {
+        (void)engine;
+        static T num = std::numeric_limits<T>::min();
+        return num--;
     };
 }
 
@@ -29,7 +39,8 @@ DistributionFunc<Engine, T> crate_distribution(const std::string& type) {
     static auto& map = *(new Map{{"uniform_binary", &create_uniform<Engine, int, 0, 1>},
                                  {"uniform_small", &create_uniform<Engine, int, 0, 10>},
                                  {"uniform_middle", &create_uniform<Engine, int, 0, 100>},
-                                 {"uniform_large", &create_uniform<Engine, int, 0, 1000>}});
+                                 {"uniform_large", &create_uniform<Engine, int, 0, 1000>},
+                                 {"ascending_sequence", &create_ascending<Engine, T>}});
 
     auto it = map.find(type);
     if (it == map.end()) {
