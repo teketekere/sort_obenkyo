@@ -1,6 +1,7 @@
 #include <unistd.h>
 
 #include <cstdio>
+#include <fstream>
 #include <iostream>
 #include <random>
 #include <string>
@@ -11,6 +12,16 @@
 #include "sort/is_sorted.hpp"
 #include "sort/sort_factory.hpp"
 #include "sort/time.hpp"
+
+template <class RandomAccessIterator>
+void save(RandomAccessIterator begin, RandomAccessIterator end, const std::string& filename = "input_sequence.csv") {
+    std::ofstream ofs(filename);
+    for (auto it = begin; it != end; ++it) {
+        ofs << *it << ",";
+    }
+
+    ofs << std::endl;
+}
 
 int main(int argc, char** argv) {
     int opt;
@@ -44,8 +55,10 @@ int main(int argc, char** argv) {
     using element_type = int;
     using container = std::vector<element_type>;
 
-    auto dist = sort::crate_distribution<engine>(distribution_name);
+    auto dist = sort::crate_distribution<engine, element_type>(distribution_name);
     auto input_original = sort::generate_input_sequence<engine, container>(input_size, dist);
+
+    save(input_original.begin(), input_original.end());
 
     for (const auto& name : sort_names) {
         // Copy input per loop (Cuz of in-place sorting)
