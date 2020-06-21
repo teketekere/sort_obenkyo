@@ -45,10 +45,10 @@ DistributionFunc<Engine, T> create_descending() {
 template <class Engine, typename T>
 DistributionFunc<Engine, T> crate_distribution(const std::string& type) {
     using Map = std::unordered_map<std::string, std::function<DistributionFunc<Engine, T>()>>;
-    static auto& map = *(new Map{{"uniform_binary", &create_uniform<Engine, int, 0, 1>},
-                                 {"uniform_small", &create_uniform<Engine, int, 0, 10>},
-                                 {"uniform_middle", &create_uniform<Engine, int, 0, 100>},
-                                 {"uniform_large", &create_uniform<Engine, int, 0, 1000>},
+    static auto& map = *(new Map{{"uniform_binary", &create_uniform<Engine, T, 0, 1>},
+                                 {"uniform_small", &create_uniform<Engine, T, 0, 10>},
+                                 {"uniform_middle", &create_uniform<Engine, T, 0, 100>},
+                                 {"uniform_large", &create_uniform<Engine, T, 0, 1000>},
                                  {"ascending", &create_ascending<Engine, T>},
                                  {"descending", &create_descending<Engine, T>}});
 
