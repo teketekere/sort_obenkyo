@@ -29,6 +29,15 @@ DistributionFunc<Engine, T> create_ascending() {
     return [](Engine& engine) {
         (void)engine;
         static T num = std::numeric_limits<T>::min();
+        return num++;
+    };
+}
+
+template <class Engine, typename T>
+DistributionFunc<Engine, T> create_descending() {
+    return [](Engine& engine) {
+        (void)engine;
+        static T num = std::numeric_limits<T>::max();
         return num--;
     };
 }
@@ -40,7 +49,8 @@ DistributionFunc<Engine, T> crate_distribution(const std::string& type) {
                                  {"uniform_small", &create_uniform<Engine, int, 0, 10>},
                                  {"uniform_middle", &create_uniform<Engine, int, 0, 100>},
                                  {"uniform_large", &create_uniform<Engine, int, 0, 1000>},
-                                 {"ascending_sequence", &create_ascending<Engine, T>}});
+                                 {"ascending", &create_ascending<Engine, T>},
+                                 {"descending", &create_descending<Engine, T>}});
 
     auto it = map.find(type);
     if (it == map.end()) {
