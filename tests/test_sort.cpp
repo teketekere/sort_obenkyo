@@ -31,4 +31,5 @@ void test_sort(const std::string& sort_name) {
 TEST(SortTest, ShouldNotFail) {
     test_sort("insertion");
     test_sort("stdsort");
+    test_sort("selection");
 }

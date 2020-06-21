@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "sort/algorithms/insertion_sort.hpp"
+#include "sort/algorithms/selection_sort.hpp"
 
 namespace sort {
 
@@ -36,11 +37,19 @@ SortFunc<RandomAccessIterator, Comparable> create_std_sort() {
 }
 
 template <class RandomAccessIterator, class Comparable>
+SortFunc<RandomAccessIterator, Comparable> create_selection_sort() {
+    return [](RandomAccessIterator begin, RandomAccessIterator end, Comparable compare) {
+        selection_sort(begin, end, compare);
+    };
+}
+
+template <class RandomAccessIterator, class Comparable>
 SortFunc<RandomAccessIterator, Comparable> create_sort(const std::string &type) {
     using Map = std::unordered_map<std::string, std::function<SortFunc<RandomAccessIterator, Comparable>()>>;
 
     static auto &map = *(new Map{{"insertion", &create_insertion_sort<RandomAccessIterator, Comparable>},
-                                 {"stdsort", &create_std_sort<RandomAccessIterator, Comparable>}});
+                                 {"stdsort", &create_std_sort<RandomAccessIterator, Comparable>},
+                                 {"selection", &create_selection_sort<RandomAccessIterator, Comparable>}});
 
     auto it = map.find(type);
     if (it == map.end()) {
