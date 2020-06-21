@@ -9,23 +9,26 @@
 
 namespace sort {
 
-template <class Engine>
-using DistributionFunc = std::function<int(Engine&)>;
+template <class Engine, typename T>
+using DistributionFunc = std::function<T(Engine&)>;
 
-template <class Engine, int Lower, int Upper>
-DistributionFunc<Engine> create_uniform() {
+template <class Engine, typename T, typename... Ts>
+DistributionFunc<Engine, T> create_uniform();
+
+template <class Engine, typename T = int, int Lower, int Upper>
+DistributionFunc<Engine, int> create_uniform() {
     return [](Engine& engine) {
         auto dist = std::uniform_int_distribution<>(Lower, Upper);
         return dist(engine);
     };
 }
 
-template <class Engine>
-DistributionFunc<Engine> crate_distribution(const std::string& type) {
-    using Map = std::unordered_map<std::string, std::function<DistributionFunc<Engine>()>>;
-    static auto& map = *(new Map{{"uniform_small", &create_uniform<Engine, 0, 10>},
-                                 {"uniform_middle", &create_uniform<Engine, 0, 100>},
-                                 {"uniform_large", &create_uniform<Engine, 0, 1000>}});
+template <class Engine, typename T>
+DistributionFunc<Engine, T> crate_distribution(const std::string& type) {
+    using Map = std::unordered_map<std::string, std::function<DistributionFunc<Engine, T>()>>;
+    static auto& map = *(new Map{{"uniform_small", &create_uniform<Engine, int, 0, 10>},
+                                 {"uniform_middle", &create_uniform<Engine, int, 0, 100>},
+                                 {"uniform_large", &create_uniform<Engine, int, 0, 1000>}});
 
     auto it = map.find(type);
     if (it == map.end()) {

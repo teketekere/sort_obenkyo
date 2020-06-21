@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
     using element_type = int;
     using container = std::vector<element_type>;
 
-    auto dist = sort::crate_distribution<engine>(distribution_name);
+    auto dist = sort::crate_distribution<engine, element_type>(distribution_name);
     auto input_original = sort::generate_input_sequence<engine, container>(input_size, dist);
 
     for (const auto& name : sort_names) {
