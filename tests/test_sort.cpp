@@ -32,4 +32,5 @@ TEST(SortTest, ShouldNotFail) {
     test_sort("insertion");
     test_sort("stdsort");
     test_sort("selection");
+    test_sort("bubble");
 }
